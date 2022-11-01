@@ -2,8 +2,40 @@
 <html>
 <head>
     <title>RPS Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header id="header">
+        <h1>RPS Game</h1>
+    </header>
+    <div id="choices">
+        <p id="textchoice"></p>
+    </div>
+    <div id = scores-header>
+        <p>User : Computer</p>
+    </div>
+    <div id=scores>
+        <p id="player-score">0</p><p>:</p><p id="computer-score">0</p>
+    </div>
+    <br>    
+    <div id="rps">
+        <button id = Rock><img src="rock.png"></button>
+        <button id = Paper><img src="paper.png"></button>
+        <button id = Scissors><img src="scissors.png"></button>
+    </div>
+    <div id = "winners">
+        <p id="textwinners"></p>
+    </div>
+    <div id ="finalwinners">
+        <p id="textfinalwinners"></p>
+    </div>
+    <div id = "info">
+        <p id="textinfo">The game ends at 5 points.</p>
+    </div>
+    <div id="restart">
+        <p>Press (Fn)F5 to Restart the game</p>
+    </div>
+
     <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

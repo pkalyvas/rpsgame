@@ -1,3 +1,20 @@
+let round = 0; 
+let plrscore = 0;
+let pcscore = 0;
+document.getElementById("Rock").addEventListener("click",rockclick);
+document.getElementById("Paper").addEventListener("click",paperclick);
+document.getElementById("Scissors").addEventListener("click",scissorsclick);
+
+function rockclick(){
+    game("rock");
+}
+function paperclick(){
+    game("paper");
+}
+function scissorsclick(){
+    game("scissors");
+}
+
 function getComputerChoice(){
     const choices = ["paper","rock","scissors"];
     const choice = Math.floor(Math.random() * choices.length);
@@ -5,9 +22,12 @@ function getComputerChoice(){
 }
 
 function playRound(computerSelection,playerSelection){
+    round++;
     let pcchoice = computerSelection.toString().toLowerCase();
     let plrchoice = playerSelection.toString().toLowerCase();
-    console.log(pcchoice,plrchoice);
+    let txt = ' Round ' + round + ' Player chooses : ' + plrchoice +' and Computer chooses : ' + pcchoice  ;
+    document.getElementById("textchoice").innerHTML = txt;
+
     if (plrchoice == "paper"){
         if (pcchoice == "paper"){
             return 0;
@@ -18,7 +38,7 @@ function playRound(computerSelection,playerSelection){
         }
     }
     if (plrchoice == "rock" ){
-        if (cpcchoice == "paper"){
+        if (pcchoice == "paper"){
             return -1;
         }else if (pcchoice == "scissors"){
             return 1;
@@ -38,27 +58,33 @@ function playRound(computerSelection,playerSelection){
 }
 
 
-function game(){
-    let plrscore = 0;
-    let pcscore = 0;
-    for(let i = 0; i < 5; i++){
-        let plrchoice = prompt("Please choose(write) : paper | rock | scissors ");
-        let x = playRound(getComputerChoice(),plrchoice);
-       
-        if ( x == 1 ){
-            console.log("Congratulations you won the round !");
-            plrscore ++;
-        }else if(x == -1){
-            console.log("You lost the round !");
-            pcscore ++;
-        }
-    }
-    if (pcscore > plrscore){
-        console.log("Lost the game !",pcscore," ",plrscore);
-    }else if(pcscore < plrscore){
-        console.log("Won the game !", pcscore," ",plrscore);
+function game(plrchoice){    
+
+    let x = playRound(getComputerChoice(),plrchoice);
+    
+    if ( x == 1 ){
+        plrscore ++;
+        document.getElementById("textwinners").innerHTML = "Congratulations! You won the round !" ;
+        document.getElementById("player-score").innerHTML = plrscore ;
+    }else if(x == -1){
+        pcscore ++;
+        document.getElementById("textwinners").innerHTML = "You lost the round !" ;
+        document.getElementById("computer-score").innerHTML = pcscore ;
     }else{
-        console.log("Draw !", pcscore," ",plrscore);
+        document.getElementById("textwinners").innerHTML = "Draw !" ;
+    }
+    if (pcscore >= 5 || plrscore >= 5){
+        document.getElementById("Rock").removeEventListener("click",rockclick);
+        document.getElementById("Paper").removeEventListener("click",paperclick);
+        document.getElementById("Scissors").removeEventListener("click",scissorsclick);
+        document.getElementById("textinfo").innerHTML = "";
+        if (pcscore > plrscore){
+            document.getElementById("textfinalwinners").innerHTML = "Lost the game !" ;
+        }else if(pcscore < plrscore){
+            document.getElementById("textfinalwinners").innerHTML = "Won the game !" ;
+        }else{
+            document.getElementById("textfinalwinners").innerHTML = "Draw !" ;
+        }
+        rps.forEach(button => button.remove());
     }
 }
-game();
